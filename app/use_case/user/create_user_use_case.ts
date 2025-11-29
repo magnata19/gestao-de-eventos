@@ -1,0 +1,17 @@
+import { inject } from '@adonisjs/core'
+import UserRepository from '../../repository/user_repository.js'
+import User from '#models/user'
+import { UserCreateDto } from '../../dtos/user/create_user_dto.js'
+import hash from '@adonisjs/core/services/hash'
+
+@inject()
+export class CreateUserUseCase {
+
+  constructor(protected userRepository: UserRepository) {
+  }
+
+  async create(data: UserCreateDto): Promise<User> {
+    data.password = await hash.make(data.password);
+    return await this.userRepository.create(data);
+  }
+}
