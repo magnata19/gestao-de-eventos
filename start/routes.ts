@@ -8,8 +8,10 @@
 */
 
 import router from '@adonisjs/core/services/router'
-import UsersController from '#controllers/user/users_controller'
+const SessionController = () => import('#controllers/auth/session_controller')
+const UsersController = () => import('#controllers/user/users_controller')
 
 router.group(() => {
   router.post('/users/participants', [UsersController, 'create'])
+  router.post('/auth', [SessionController, 'store'])
 })

@@ -6,14 +6,12 @@ import UserResponseDto from '../../dtos/user/user_response_dto.js'
 
 @inject()
 export default class UsersController {
+  constructor(protected useCase: CreateUserUseCase) {}
 
-  constructor(protected useCase: CreateUserUseCase) {
-  }
-
-  async create({request, response}: HttpContext): Promise<UserResponseDto>{
+  async create({ request, response }: HttpContext): Promise<UserResponseDto> {
     const data = await request.validateUsing(CreateUserValidator)
-    const user = await this.useCase.create(data);
-    response.status(201);
-    return user;
+    const user = await this.useCase.create(data)
+    response.status(201)
+    return user
   }
 }
