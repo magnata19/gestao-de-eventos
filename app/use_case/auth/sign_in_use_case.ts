@@ -8,6 +8,6 @@ export class SignInUseCase {
 
   async signIn({ email, password }: SignInDto): Promise<any> {
     const user = await User.verifyCredentials(email, password)
-    return User.accessToken.create(user)
+    return User.accessTokens.create(user)
   }
 }

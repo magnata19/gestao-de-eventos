@@ -1,4 +1,3 @@
-import User from '#models/user'
 import { createSessionValidator } from '#validators/auth/session'
 import { inject } from '@adonisjs/core'
 import type { HttpContext } from '@adonisjs/core/http'
@@ -12,9 +11,5 @@ export default class SessionController {
     const signInDto = await request.validateUsing(createSessionValidator)
     const user = await this.signInUseCase.signIn(signInDto)
     return response.ok(user)
-  }
-
-  async destroy({ request, auth }: HttpContext) {
-    const user = auth.user
   }
 }
