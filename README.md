@@ -122,4 +122,4 @@ A API estará rodando em: http://localhost:3333
 - **Bearer Token** para autenticação
 
 A collection completa de requisições está disponível no arquivo:
-insomnia.json
+postman_collection.json
