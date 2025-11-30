@@ -8,6 +8,7 @@
 */
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
+const EventsController = () => import('#controllers/event/events_controller')
 const SessionController = () => import('#controllers/auth/session_controller')
 const UsersController = () => import('#controllers/user/users_controller')
 
@@ -17,9 +18,7 @@ router.group(() => {
   router.patch('/users/:id', [UsersController, 'update']).use(middleware.auth())
   router.get('/users/me', [UsersController, 'show']).use(middleware.auth())
   router
-    .get('/users/organizer', () => {
-      return 'Rota protegida para organizadores'
-    })
+    .post('/events', [EventsController, 'create'])
     .use(middleware.auth())
     .use(middleware.userRole())
 })

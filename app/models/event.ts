@@ -11,11 +11,8 @@ export default class Event extends BaseModel {
   @column()
   declare localization: string
 
-  @column()
-  declare date: Date
-
-  @column()
-  declare time: string
+  @column.dateTime()
+  declare dateTime: DateTime
 
   @column()
   declare maximumCapacity: number

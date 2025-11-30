@@ -29,6 +29,14 @@ export default class HttpExceptionHandler extends ExceptionHandler {
         messages: error.messages?.errors || error.messages,
       })
     }
+
+    if (error.code === 'E_UNAUTHORIZED_ACCESS') {
+      return response.status(401).json({
+        status: 401,
+        error: 'Token inválido ou ausente. Autenticação necessária.',
+      })
+    }
+
     return response.status(error.status || 500).json({
       error: error.message || 'Internal server error',
       name: error.name || 'Error',
