@@ -114,13 +114,12 @@ A API estará rodando em: http://localhost:3333
 
 # 🛠️ 8. Tecnologias e Ferramentas
 
-Node.js
-AdonisJS 6
-TypeScript
-PostgreSQL
-Lucid ORM
-Docker + Docker Compose
-Bearer Token
+- **Node.js**
+- **AdonisJS 6** (TypeScript)
+- **Lucid ORM**
+- **PostgreSQL** (recomendado) ou SQLite
+- **Docker + Docker Compose**
+- **Bearer Token** para autenticação
 
 A collection completa de requisições está disponível no arquivo:
 insomnia.json
