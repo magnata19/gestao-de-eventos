@@ -5,4 +5,8 @@ export class EventRepository {
   async create(data: CreateEventDto): Promise<Event> {
     return await Event.create(data)
   }
+
+  async findById(id: number): Promise<Event | null> {
+    return await Event.find(id)
+  }
 }
