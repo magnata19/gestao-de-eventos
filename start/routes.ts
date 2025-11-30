@@ -16,4 +16,10 @@ router.group(() => {
   router.post('/auth', [SessionController, 'store'])
   router.patch('/users/:id', [UsersController, 'update']).use(middleware.auth())
   router.get('/users/me', [UsersController, 'show']).use(middleware.auth())
+  router
+    .get('/users/organizer', () => {
+      return 'Rota protegida para organizadores'
+    })
+    .use(middleware.auth())
+    .use(middleware.userRole())
 })

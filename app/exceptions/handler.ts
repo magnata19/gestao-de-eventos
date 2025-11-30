@@ -13,7 +13,7 @@ export default class HttpExceptionHandler extends ExceptionHandler {
    * The method is used for handling errors and returning
    * response to the client
    */
-  async handle(error: unknown, ctx: HttpContext) {
+  async handle(error: any, ctx: HttpContext) {
     const { response } = ctx
     if (error instanceof NotFoundException) {
       return response.notFound({
@@ -22,6 +22,11 @@ export default class HttpExceptionHandler extends ExceptionHandler {
         status: error.status,
       })
     }
+    return response.status(error.status || 500).json({
+      error: error.message || 'Internal server error',
+      name: error.name || 'Error',
+      status: error.status || 500,
+    })
   }
 
   /**
