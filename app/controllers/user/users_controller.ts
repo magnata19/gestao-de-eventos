@@ -7,6 +7,7 @@ import { UpdateUserUseCase } from '../../use_case/user/update_user_use_case.js'
 import { UpdateUserValidator } from '#validators/user/update_user_validator'
 import { ShowRegisteredEventsUseCase } from '../../use_case/user/show_registered_events.js'
 import DeleteEventSubscriptionUseCase from '../../use_case/user/delete_event_subscription_use_case.js'
+import DeleteOnlyEmptyEventsUseCase from '../../use_case/user/delete_only_empty_events.js'
 
 @inject()
 export default class UsersController {
@@ -14,7 +15,8 @@ export default class UsersController {
     protected createUserUseCase: CreateUserUseCase,
     protected updateUserUseCase: UpdateUserUseCase,
     protected showRegisteredEvents: ShowRegisteredEventsUseCase,
-    protected deleteEventSubscriptionUseCase: DeleteEventSubscriptionUseCase
+    protected deleteEventSubscriptionUseCase: DeleteEventSubscriptionUseCase,
+    protected deleteEmptyEventUseCase: DeleteOnlyEmptyEventsUseCase
   ) {}
 
   async create({ request, response }: HttpContext): Promise<UserResponseDto> {
@@ -47,6 +49,14 @@ export default class UsersController {
     const userId = auth.user!.id
     const eventId = params.id
     const result = await this.deleteEventSubscriptionUseCase.execute(userId, eventId)
+    response.status(200)
+    return result
+  }
+
+  async deleteEmptyEvent({ params, auth, response }: HttpContext): Promise<any> {
+    const userId = auth.user!.id
+    const eventId = params.id
+    const result = await this.deleteEmptyEventUseCase.execute(userId, eventId)
     response.status(200)
     return result
   }

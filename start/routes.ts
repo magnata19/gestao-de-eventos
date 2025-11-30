@@ -21,15 +21,16 @@ router
     router
       .delete('/events/:id/unsubscribe', [UsersController, 'cancelEventSubscription'])
       .use(middleware.auth())
+    router
+      .delete('/events/:id', [UsersController, 'deleteEmptyEvent'])
+      .use(middleware.auth())
+      .use(middleware.userRole())
   })
   .prefix('/users')
 
 router
   .group(() => {
-    router
-      .post('/create', [EventsController, 'create'])
-      .use(middleware.auth())
-      .use(middleware.userRole())
+    router.post('/', [EventsController, 'create']).use(middleware.auth()).use(middleware.userRole())
     router
       .patch('/:id', [EventsController, 'update'])
       .use(middleware.auth())
