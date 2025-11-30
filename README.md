@@ -74,6 +74,7 @@ A aplicação segue uma arquitetura em camadas inspirada em **Clean Architecture
 ---
 
 # 🗄️ 6. Estrutura de Pastas (Clean Architecture)
+```bash
 app/
 ├── controllers/
 ├── dtos/
@@ -86,7 +87,6 @@ app/
 │   ├── functions/
 │   └── interfaces/
 └── validators/
-text---
 
 # 🐳 7. Como Rodar o Projeto
 
