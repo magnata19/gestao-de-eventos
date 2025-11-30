@@ -27,4 +27,5 @@ router.group(() => {
     .patch('/events/:id', [EventsController, 'update'])
     .use(middleware.auth())
     .use(middleware.userRole())
+  router.post('/events/:id/subscribe', [EventsController, 'eventSubscribe']).use(middleware.auth())
 })

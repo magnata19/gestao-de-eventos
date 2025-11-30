@@ -5,12 +5,14 @@ import { EventValidator } from '#validators/event/event'
 import { DateTime } from 'luxon'
 import { ResponseEventDto } from '../../dtos/event/response_event_dto.js'
 import { UpdateEventoUseCase } from '../../use_case/event/update_event_use_case.js'
+import { RegisterEventUseCase } from '../../use_case/user/register_event_use_case.js'
 
 @inject()
 export default class EventsController {
   constructor(
     protected createEventUseCase: CreateEventUseCase,
-    protected updateEventUseCase: UpdateEventoUseCase
+    protected updateEventUseCase: UpdateEventoUseCase,
+    protected subscribeEventUseCase: RegisterEventUseCase
   ) {}
 
   async create({ auth, request, response }: HttpContext): Promise<ResponseEventDto> {
@@ -39,5 +41,13 @@ export default class EventsController {
     )
     response.status(200)
     return event
+  }
+
+  async eventSubscribe({ params, auth, request, response }: HttpContext): Promise<any> {
+    const userId = auth.user!.id
+    const eventId = params.id
+    const result = await this.subscribeEventUseCase.execute(userId, eventId)
+    response.status(200)
+    return result
   }
 }

@@ -1,10 +1,12 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, column, manyToMany } from '@adonisjs/lucid/orm'
 import { UserRole } from '../utils/enum.js'
 import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
 import hash from '@adonisjs/core/services/hash'
 import { compose } from '@adonisjs/core/helpers'
 import { DbAccessTokensProvider } from '@adonisjs/auth/access_tokens'
+import type { ManyToMany } from '@adonisjs/lucid/types/relations'
+import Event from './event.js'
 
 const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
   uids: ['email'],
@@ -14,6 +16,12 @@ const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
 export default class User extends compose(BaseModel, AuthFinder) {
   @column({ isPrimary: true })
   declare id: number
+
+  @manyToMany(() => Event, {
+    pivotTable: 'event_partipants',
+    pivotTimestamps: true,
+  })
+  declare registeredEvents: ManyToMany<typeof Event>
 
   @column()
   declare name: string
