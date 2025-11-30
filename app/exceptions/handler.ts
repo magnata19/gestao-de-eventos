@@ -37,6 +37,14 @@ export default class HttpExceptionHandler extends ExceptionHandler {
       })
     }
 
+    if (error.code === 'E_INVALID_CREDENTIALS') {
+      return response.status(401).json({
+        status: 400,
+        error: 'Credenciais inválidas. Verifique seu email e senha.',
+        name: error.name,
+      })
+    }
+
     return response.status(error.status || 500).json({
       error: error.message || 'Internal server error',
       name: error.name || 'Error',

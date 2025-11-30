@@ -14,7 +14,7 @@ const UsersController = () => import('#controllers/user/users_controller')
 router.post('/auth', [SessionController, 'store'])
 router
   .group(() => {
-    router.post('/participants', [UsersController, 'create'])
+    router.post('/create', [UsersController, 'create'])
     router.patch('/:id', [UsersController, 'update']).use(middleware.auth())
     router.get('/me', [UsersController, 'show']).use(middleware.auth())
     router.get('/me/events', [UsersController, 'showEvents']).use(middleware.auth())
