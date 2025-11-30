@@ -8,6 +8,7 @@ import { UpdateUserValidator } from '#validators/user/update_user_validator'
 import { ShowRegisteredEventsUseCase } from '../../use_case/user/show_registered_events.js'
 import DeleteEventSubscriptionUseCase from '../../use_case/user/delete_event_subscription_use_case.js'
 import DeleteOnlyEmptyEventsUseCase from '../../use_case/user/delete_only_empty_events.js'
+import ShowParticipantsFromEventUseCase from '../../use_case/user/show_participants_from_event.js'
 
 @inject()
 export default class UsersController {
@@ -16,12 +17,13 @@ export default class UsersController {
     protected updateUserUseCase: UpdateUserUseCase,
     protected showRegisteredEvents: ShowRegisteredEventsUseCase,
     protected deleteEventSubscriptionUseCase: DeleteEventSubscriptionUseCase,
-    protected deleteEmptyEventUseCase: DeleteOnlyEmptyEventsUseCase
+    protected deleteEmptyEventUseCase: DeleteOnlyEmptyEventsUseCase,
+    protected showParticipantsFromEventUseCase: ShowParticipantsFromEventUseCase
   ) {}
 
   async create({ request, response }: HttpContext): Promise<UserResponseDto> {
     const data = await request.validateUsing(CreateUserValidator)
-    const user = await this.createUserUseCase.create(data)
+    const user = await this.createUserUseCase.execute(data)
     response.status(201)
     return user
   }
@@ -29,7 +31,7 @@ export default class UsersController {
   async update({ params, request, response }: HttpContext): Promise<UserResponseDto | null> {
     const userId = params.id
     const data = await request.validateUsing(UpdateUserValidator)
-    const user = await this.updateUserUseCase.update(userId, data)
+    const user = await this.updateUserUseCase.execute(userId, data)
     response.status(200)
     return user
   }
@@ -58,6 +60,13 @@ export default class UsersController {
     const eventId = params.id
     const result = await this.deleteEmptyEventUseCase.execute(userId, eventId)
     response.status(200)
+    return result
+  }
+
+  async showParticipants({ params, auth }: HttpContext): Promise<any> {
+    const organizerId = auth.user!.id
+    const eventId = params.id
+    const result = await this.showParticipantsFromEventUseCase.execute(organizerId, eventId)
     return result
   }
 }

@@ -8,7 +8,7 @@ import NotFoundException from '#exceptions/not_found_exception'
 export class UpdateUserUseCase {
   constructor(protected userRepository: UserRepository) {}
 
-  async update(id: number, data: Partial<UpdateUserDto>): Promise<User | null> {
+  async execute(id: number, data: Partial<UpdateUserDto>): Promise<User | null> {
     const user = await this.userRepository.findById(id)
     if (!user) {
       throw new NotFoundException('Usuário não encontrado.')

@@ -18,11 +18,18 @@ router
     router.patch('/:id', [UsersController, 'update']).use(middleware.auth())
     router.get('/me', [UsersController, 'show']).use(middleware.auth())
     router.get('/me/events', [UsersController, 'showEvents']).use(middleware.auth())
+
     router
       .delete('/events/:id/unsubscribe', [UsersController, 'cancelEventSubscription'])
       .use(middleware.auth())
+
     router
       .delete('/events/:id', [UsersController, 'deleteEmptyEvent'])
+      .use(middleware.auth())
+      .use(middleware.userRole())
+
+    router
+      .get('/events/:id/participants', [UsersController, 'showParticipants'])
       .use(middleware.auth())
       .use(middleware.userRole())
   })

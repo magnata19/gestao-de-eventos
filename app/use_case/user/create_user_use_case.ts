@@ -7,7 +7,7 @@ import { UserCreateDto } from '../../dtos/user/create_user_dto.js'
 export class CreateUserUseCase {
   constructor(protected userRepository: UserRepository) {}
 
-  async create(data: UserCreateDto): Promise<User> {
+  async execute(data: UserCreateDto): Promise<User> {
     return await this.userRepository.create(data)
   }
 }
