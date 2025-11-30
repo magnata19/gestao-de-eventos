@@ -87,6 +87,7 @@ app/
 │   ├── functions/
 │   └── interfaces/
 └── validators/
+```
 
 # 🐳 7. Como Rodar o Projeto
 
@@ -109,8 +110,9 @@ node ace migration:run
 # 6. Inicie o servidor de desenvolvimento
 npm run dev
 A API estará rodando em: http://localhost:3333
+```
 
-🛠️ 8. Tecnologias e Ferramentas
+# 🛠️ 8. Tecnologias e Ferramentas
 
 Node.js
 AdonisJS 6
