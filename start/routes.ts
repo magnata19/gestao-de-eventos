@@ -18,6 +18,7 @@ router.group(() => {
   router.post('/users/participants', [UsersController, 'create'])
   router.patch('/users/:id', [UsersController, 'update']).use(middleware.auth())
   router.get('/users/me', [UsersController, 'show']).use(middleware.auth())
+  router.get('/users/me/events', [UsersController, 'showEvents']).use(middleware.auth())
 
   router
     .post('/events', [EventsController, 'create'])
