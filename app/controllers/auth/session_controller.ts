@@ -9,7 +9,7 @@ export default class SessionController {
 
   async store({ request, response }: HttpContext) {
     const signInDto = await request.validateUsing(createSessionValidator)
-    const user = await this.signInUseCase.signIn(signInDto)
+    const user = await this.signInUseCase.execute(signInDto)
     return response.ok(user)
   }
 }

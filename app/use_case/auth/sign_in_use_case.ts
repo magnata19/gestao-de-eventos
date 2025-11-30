@@ -7,7 +7,7 @@ import getAccessTokenAndId from '../../utils/functions/auth/get_access_token_and
 export class SignInUseCase {
   constructor() {}
 
-  async signIn({ email, password }: SignInDto): Promise<any> {
+  async execute({ email, password }: SignInDto): Promise<any> {
     const user = await User.verifyCredentials(email, password)
     return getAccessTokenAndId(user)
   }

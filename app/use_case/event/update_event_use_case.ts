@@ -9,7 +9,7 @@ import UnauthorizedAccessException from '#exceptions/unauthorized_access_excepti
 export class UpdateEventoUseCase {
   constructor(protected eventRepository: EventRepository) {}
 
-  async update(
+  async execute(
     id: number,
     data: Partial<CreateEventDto>,
     userId: number

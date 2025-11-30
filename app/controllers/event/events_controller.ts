@@ -18,7 +18,7 @@ export default class EventsController {
   async create({ auth, request, response }: HttpContext): Promise<ResponseEventDto> {
     const user = auth.user
     const data = await request.validateUsing(EventValidator)
-    const event = await this.createEventUseCase.create({
+    const event = await this.createEventUseCase.execute({
       ...data,
       dateTime: DateTime.fromFormat(data.dateTime, 'dd/MM/yyyy HH:mm'), // converte string para DateTime do Luxon
       organizerId: user!.id,
@@ -31,7 +31,7 @@ export default class EventsController {
     const data = await request.validateUsing(EventValidator)
     const eventId = params.id
     const userId = auth.user?.id!
-    const event = await this.updateEventUseCase.update(
+    const event = await this.updateEventUseCase.execute(
       eventId,
       {
         ...data,

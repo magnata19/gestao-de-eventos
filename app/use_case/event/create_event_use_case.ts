@@ -7,7 +7,7 @@ import { ResponseEventDto } from '../../dtos/event/response_event_dto.js'
 export default class CreateEventUseCase {
   constructor(protected eventRepository: EventRepository) {}
 
-  async create(data: CreateEventDto): Promise<ResponseEventDto> {
+  async execute(data: CreateEventDto): Promise<ResponseEventDto> {
     const event = await this.eventRepository.create(data)
     return event
   }
