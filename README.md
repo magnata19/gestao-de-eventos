@@ -108,7 +108,7 @@ node ace migration:run
 
 # 6. Inicie o servidor de desenvolvimento
 npm run dev
-A API estará rodando em: http://localhost:3333```
+A API estará rodando em: http://localhost:3333
 
 🛠️ 8. Tecnologias e Ferramentas
 
