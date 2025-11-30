@@ -22,6 +22,13 @@ export default class HttpExceptionHandler extends ExceptionHandler {
         status: error.status,
       })
     }
+    if (error.code === 'E_VALIDATION_ERROR') {
+      return response.status(422).json({
+        status: 422,
+        error: 'Validation error',
+        messages: error.messages?.errors || error.messages,
+      })
+    }
     return response.status(error.status || 500).json({
       error: error.message || 'Internal server error',
       name: error.name || 'Error',
